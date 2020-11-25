@@ -1,9 +1,13 @@
 package com.training.ykb.rest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +28,7 @@ import com.training.ykb.rest.error.ErrorObj;
 import com.training.ykb.service.EmployeeService;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/v1/employee")
 @Validated
 public class EmployeeRest {
 
@@ -57,15 +61,46 @@ public class EmployeeRest {
 
     @PostMapping("/addnew5")
     public String addnew5(@Validated @RequestBody final Employee emp) {
-        if (emp.getAge() != null) {
-            if ((emp.getAge() > 120) || (emp.getAge() < 18)) {
-                throw new IllegalArgumentException("age 18 ile 120 arasında");
-            }
-        }
+        //        if (emp.getAge() != null) {
+        //            if ((emp.getAge() > 120) || (emp.getAge() < 18)) {
+        //                throw new IllegalArgumentException("age 18 ile 120 arasında");
+        //            }
+        //        }
         this.es.addEmpleyee(emp);
         return "Adding New 5 : " + emp;
     }
 
+    @PostMapping(value = "/addnew6",
+                 consumes = {
+                              MediaType.APPLICATION_JSON_VALUE,
+                              MediaType.APPLICATION_XML_VALUE
+                 },
+                 produces = {
+                              MediaType.APPLICATION_JSON_VALUE,
+                              MediaType.APPLICATION_XML_VALUE
+                 })
+    public Employee addnew6(@Validated @RequestBody final Employee emp) {
+        emp.setName("ayse");
+        return emp;
+    }
+
+    @PostMapping("/addnew7")
+    public ResponseEntity<Employee> addnew7(@Validated @RequestBody final Employee emp) {
+        return ResponseEntity.status(202)
+                             .header("test",
+                                     "mest")
+                             .body(emp);
+    }
+
+    @PostMapping("/addnew8")
+    public ResponseEntity<Employee> addnew8(@Validated @RequestBody final Employee emp,
+                                            final HttpServletRequest hsr,
+                                            final HttpHeaders httpHeadersParam) {
+        return ResponseEntity.status(202)
+                             .header("test",
+                                     "mest")
+                             .body(emp);
+    }
 
     @GetMapping("/test")
     public String get() {

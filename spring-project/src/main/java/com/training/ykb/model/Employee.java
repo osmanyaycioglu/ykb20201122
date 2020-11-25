@@ -4,12 +4,18 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.training.ykb.validation.StartWithCheck;
+
+@XmlRootElement
 public class Employee {
 
     @NotEmpty
     @Size(min = 2, max = 30, message = "Employee name 2 ile 30 arasında olmalı")
+    @StartWithCheck(start = "test", message = "name test ile başlamalı")
     private String  name;
+    @StartWithCheck(start = "test", message = "surname test ile başlamalı")
     private String  surname;
     @Max(120)
     @Min(18)
