@@ -1,6 +1,7 @@
 package com.training.ykb.accounting.rest;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ public class AccountingRest {
     private int port;
 
     @PostMapping("/pay")
-    public String pay(@RequestBody final Order orderParam) {
+    public String pay(@Validated @RequestBody final Order orderParam) {
         return "OK-" + this.port;
     }
 

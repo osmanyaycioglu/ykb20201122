@@ -6,12 +6,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.training.ykb.order.model.Order;
+import com.training.ykb.rest.error.RestException;
 
 @FeignClient(name = "ACCOUNTING")
 @RequestMapping("/accounting")
 public interface IAccountingClient {
 
     @PostMapping("/pay")
-    public String pay(@RequestBody final Order orderParam);
+    public String pay(@RequestBody final Order orderParam) throws RestException;
 
 }

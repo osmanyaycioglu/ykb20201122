@@ -27,7 +27,7 @@ public class PaymentService {
     @Autowired
     private IAccountingClient iac;
 
-    public String placeOrderFeign(final Order orderParam) {
+    public String placeOrderFeign(final Order orderParam) throws Exception {
         return "Request from : " + this.port + " : " + this.iac.pay(orderParam);
     }
 

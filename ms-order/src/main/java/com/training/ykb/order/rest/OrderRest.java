@@ -22,7 +22,7 @@ public class OrderRest {
     }
 
     @PostMapping("/place2")
-    public String placeOrder2(@RequestBody final Order order) {
+    public String placeOrder2(@RequestBody final Order order) throws Exception {
         return this.ps.placeOrderFeign(order);
     }
 
